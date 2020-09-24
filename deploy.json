@@ -63,6 +63,33 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Resources/deployments', 'serverfarmdeployment')]"
             ]
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "aideployment",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/tracerco-peter/arm-test/master/microsoft.insights-components@1.0.0.0.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name": { "value": "ai-test-123-tracerco" },
+                    "webAppName": {"value": "[parameters('webAppName')]"}
+                }
+            }
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('webAppName'), '/appsettings')]",
+            "type": "Microsoft.Web/sites/config",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'webappdeployment')]"
+            ],
+            "properties": {
+                "ASD": "ASD"
+            }
         }
     ]
 }
