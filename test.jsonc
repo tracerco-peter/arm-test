@@ -1,9 +1,39 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "webAppName": {
+            "type": "string",
+            "defaultValue": "[concat('webApp-', uniqueString(resourceGroup().id))]",
+            "metadata": {
+                "description": "Web app name."
+            },
+            "minLength": 2
+        },
+        "propertyName": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        },
+        "propertyValue": {
+            "type": "string",
+            "metadata": {
+                "description": "description"
+            }
+        }
+    },
     "functions": [],
     "variables": {},
-    "resources": [],
+    "resources": [
+        {
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('webAppName'), '/appsettings')]",
+            "type": "Microsoft.Web/sites/config",
+            "properties": {
+                "[parameters('propertyName')]": "[parameters('propertyValue')]"
+            }
+        }
+    ],
     "outputs": {}
 }
