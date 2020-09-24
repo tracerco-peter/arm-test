@@ -31,17 +31,6 @@
             "properties": {
                 "applicationId": "[parameters('name')]"
             }
-        },
-        {
-            "apiVersion": "2018-11-01",
-            "name": "[concat(parameters('webAppName'), '/appsettings')]",
-            "type": "Microsoft.Web/sites/config",
-            "dependsOn": [
-                "[resourceId('microsoft.insights/components', parameters('name'))]"
-            ],
-            "properties": {
-                "ASD132": "ASD123"
-            }
         }
     ],
     "outputs": {
