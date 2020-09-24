@@ -82,21 +82,14 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://mystorageaccount.blob.core.windows.net/AzureTemplates/newStorageAccount.json",
+                    "uri": "https://raw.githubusercontent.com/tracerco-peter/arm-test/master/microsoft.web-serverfarms@1.0.0.0.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
-                    "storageAccountName": { "value": "[parameters('storageAccountName')]" }
+                    "sku": { "value": "[parameters('sku')]" },
+                    "location": { "value": "[parameters('location')]" },
+                    "webAppName": { "value": "[parameters('webAppName')]" }
                 }
-            }
-        },
-        {
-            "apiVersion": "2019-10-01",
-            "type": "Microsoft.Web/serverfarms",
-            "name": "[variables('appServicePlanPortalName')]",
-            "location": "[parameters('location')]",
-            "sku": {
-                "name": "[parameters('sku')]"
             }
         },
         {
