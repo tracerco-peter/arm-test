@@ -37,7 +37,7 @@
             "name": "[concat(parameters('webAppName'), '/appsettings')]",
             "type": "Microsoft.Web/sites/config",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'webappdeployment')]"
+                "[resourceId('microsoft.insights/components', parameters('name'))]"
             ],
             "properties": {
                 "ASD132": "ASD123"
