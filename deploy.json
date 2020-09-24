@@ -78,7 +78,7 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-10-01",
-            "name": "linkedTemplate",
+            "name": "serverfarmdeployment",
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -93,32 +93,23 @@
             }
         },
         {
-            "apiVersion": "2019-08-01",
-            "type": "Microsoft.Web/sites",
-            "name": "[parameters('webAppName')]",
-            "location": "[parameters('location')]",
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'linkedTemplate')]"
-            ],
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "webappdeployment",
             "properties": {
-                "siteConfig": "[variables('configReference')[parameters('language')]]",
-                "serverFarmId": "[reference('linkedTemplate').outputs.resourceId.value]"
-            },
-            "resources": [
-                {
-                    "type": "sourcecontrols",
-                    "apiVersion": "2019-08-01",
-                    "name": "web",
-                    "location": "[parameters('location')]",
-                    "dependsOn": [
-                        "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
-                    ],
-                    "properties": {
-                        "repoUrl": "[variables('gitRepoUrl')]",
-                        "branch": "master",
-                        "isManualIntegration": true
-                    }
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "https://raw.githubusercontent.com/tracerco-peter/arm-test/master/microsoft.web-sites@1.0.0.0.json",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serverFarmId": { "value": "[reference('serverfarmdeployment').outputs.resourceId.value]" },
+                    "location": { "value": "[parameters('location')]" },
+                    "webAppName": { "value": "[parameters('webAppName')]" }
                 }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'serverfarmdeployment')]"
             ]
         }
     ]
