@@ -1,0 +1,36 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "type": "string",
+			"metadata": {
+            "description": "Name of Application Insights resource."
+          }
+        },
+        "regionId": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+			"metadata": {
+            "description": "Which Azure Region to deploy the resource to. This must be a valid Azure regionId."
+          }
+        }
+    },
+    "resources": [
+        {
+            "name": "[parameters('name')]",
+            "type": "microsoft.insights/components",
+            "location": "[parameters('regionId')]",
+            "apiVersion": "2014-04-01",
+            "properties": {
+                "applicationId": "[parameters('name')]"
+            }
+        }
+    ],
+    "outputs": {
+        "resourceId": {
+            "type": "string",
+            "value": "[resourceId('microsoft.insights/components', parameters('name'))]"
+        }
+    }
+}

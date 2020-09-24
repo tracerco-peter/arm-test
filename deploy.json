@@ -51,7 +51,7 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "https://raw.githubusercontent.com/tracerco-peter/arm-test/master/microsoft.web-sites@1.0.0.0.json",
+                    "uri": "https://raw.githubusercontent.com/tracerco-peter/arm-test/master/microsoft.web-sites.json@1.0.0.0.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
