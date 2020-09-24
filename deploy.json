@@ -98,11 +98,11 @@
             "name": "[parameters('webAppName')]",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
+                "[resourceId('Microsoft.Resources/deployments', 'linkedTemplate')]"
             ],
             "properties": {
                 "siteConfig": "[variables('configReference')[parameters('language')]]",
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
+                "serverFarmId": "[reference('linkedTemplate').outputs.resourceId.value]"
             },
             "resources": [
                 {
